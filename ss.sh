@@ -5,19 +5,19 @@ PASSWD="000000"
 INSTALL_PATH="/root"
 
 download_bin(){
-wget -P ${PATH} ${URL}
-local bin_name=`ls ${PATH}|grep .gz`
-gzip -d ${PATH}/${bin_name}
-mv ${PATH}/${bin_name} ${PATH}/ss
-chmod +x ${PATH}/ss
+wget -P ${INSTALL_PATH} ${URL}
+local bin_name=`ls ${INSTALL_PATH}|grep .gz`
+gzip -d ${INSTALL_PATH}/${bin_name}
+mv ${INSTALL_PATH}/${bin_name} ${INSTALL_PATH}/ss
+chmod +x ${INSTALL_PATH}/ss
 }
 
 set_start_script(){
-cat > ${PATH}/auto.sh << EOF
+cat > ${INSTALL_PATH}/auto.sh << EOF
 #!/bin/bash
-${PATH}/ss -s 'ss://AEAD_CHACHA20_POLY1305:${PASSWD}@:${PORT}' -verbose
+${INSTALL_PATH}/ss -s 'ss://AEAD_CHACHA20_POLY1305:${PASSWD}@:${PORT}' -verbose
 EOF
-chmod +x ${PATH}/auto.sh
+chmod +x ${INSTALL_PATH}/auto.sh
 }
 
 set_service(){
@@ -30,7 +30,7 @@ Wants=network.target
 [Service]
 Type=simple
 PIDFile=/run/shadowsocks.pid
-ExecStart=${PATH}/auto.sh
+ExecStart=${INSTALL_PATH}/auto.sh
 Restart=on-failure
 
 [Install]
