@@ -44,5 +44,6 @@ echo "---set start script---"
 set_start_script
 echo "---set service---"
 set_service
+systemctl daemon-reload
 systemctl enable ss
 systemctl restart ss
