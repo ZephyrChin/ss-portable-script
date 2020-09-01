@@ -8,7 +8,7 @@ download_bin(){
 wget -P ${INSTALL_PATH} ${URL}
 local bin_name=`ls ${INSTALL_PATH}|grep .gz`
 gzip -d ${INSTALL_PATH}/${bin_name}
-mv ${INSTALL_PATH}/${bin_name} ${INSTALL_PATH}/ss
+mv ${INSTALL_PATH}/${bin_name%.*} ${INSTALL_PATH}/ss
 chmod +x ${INSTALL_PATH}/ss
 }
 
